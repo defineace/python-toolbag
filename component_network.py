@@ -5,11 +5,10 @@ class tab_network:
     def __init__(self, root):
         self.root = root
         
-        self.container = Frame(self.root)
-        self.container.pack()
 
         self.createNetworkHeader()
         self.createPortScanner()
+
 
     def createNetworkHeader(self):
         # Variables
@@ -20,7 +19,7 @@ class tab_network:
         ip_address.set(socket.gethostbyname(hostname.get()))
 
         # Widget Root
-        frame_header = Frame(self.container)
+        frame_header = Frame(self.root)
         frame_header.pack()
         # Widgets
         title = Label(frame_header, text="Computer Network Configuration")
@@ -46,7 +45,7 @@ class tab_network:
 
     def createPortScanner(self):
         # Widget Root
-        frame_scanner = Frame(self.container)
+        frame_scanner = Frame(self.root)
         frame_scanner.pack()
         # Widgets
         title = Label(frame_scanner, text="Port Scanner")

@@ -4,21 +4,23 @@ import os
 class tab_explorer:
     def __init__(self, root):
         self.root = root
-        
-        self.container = Frame(self.root)
-        self.container.pack()
+        self.frameList = []
 
         self.path = StringVar()
         self.filename_filter = StringVar()
+
+        self.path.set("C:/Users/lrdef/Desktop/Projects/Coding/Python/python-practice")
+        self.filename_filter.set("utility")
 
         self.createExplorerHeader()
 
 
     def createExplorerHeader(self):
-        # Widgets
-        frame_header = Frame(self.container)
+        # Widget Root
+        frame_header = Frame(self.root)
         frame_header.pack()
 
+        # Widgets
         path_label = Label(frame_header,text="Path")
         path_entry = Entry(frame_header, textvariable=self.path)
 
@@ -38,7 +40,14 @@ class tab_explorer:
 
 
     def createTable(self):
-        frame_table = Frame(self.container)
+        # Clear Table
+        if(len(self.frameList) != 0):
+            for frame in self.frameList:
+                frame.destroy()
+        
+        # Widget Root
+        frame_table = Frame(self.root)
+        self.frameList.append(frame_table)
         frame_table.pack()
 
         directory = os.listdir(self.path.get())
@@ -47,11 +56,14 @@ class tab_explorer:
 
             if(filename.__contains__(self.filename_filter.get())):
                 # Variables
+                index_label = StringVar()
+                index_label.set("Result: " + str(directory.index(filename)+1))
+
                 filename_original = StringVar()
                 filename_original.set(filename)
 
                 # Widgets
-                index_entry = Entry(frame_table, text="Result: " + str(directory.index(filename)+1))
+                index_entry = Entry(frame_table, textvariable=index_label)
                 
                 filename_original_entry = Entry(frame_table, text=filename_original)
                 filename_rename_entry = Entry(frame_table, text='')
@@ -60,4 +72,3 @@ class tab_explorer:
                 index_entry.grid(row=i, column=0)
                 filename_original_entry.grid(row=i, column=1, ipadx=100)
                 filename_rename_entry.grid(row=i, column=2, ipadx=100)
-
