@@ -1,23 +1,31 @@
 from tkinter import *
-import os
+from fragment_explorer_table import *
 
 class tab_explorer:
     def __init__(self, root):
+        # Variables
         self.root = root
         self.frameList = []
 
         self.path = StringVar()
-        self.filename_filter = StringVar()
+        self.filter = StringVar()
+
+        self.search = StringVar()
+        self.replace = StringVar()
 
         self.path.set("C:/Users/lrdef/Desktop/Projects/Coding/Python/python-practice")
-        self.filename_filter.set("utility")
+        self.filter.set("")
 
-        self.createExplorerHeader()
+        self.search.set("utility_")
+        self.replace.set("utility_category_")
 
+        # Render Frames
+        self.frameExplorerHeader()
+        self.frameSearchReplace()
 
-    def createExplorerHeader(self):
+    def frameExplorerHeader(self):
         # Widget Root
-        frame_header = Frame(self.root)
+        frame_header = Frame(self.root, borderwidth=10)
         frame_header.pack()
 
         # Widgets
@@ -25,9 +33,10 @@ class tab_explorer:
         path_entry = Entry(frame_header, textvariable=self.path)
 
         filter_label = Label(frame_header,text="Filter")
-        filter_entry = Entry(frame_header, textvariable=self.filename_filter)
+        filter_entry = Entry(frame_header, textvariable=self.filter)
 
-        search_button = Button(frame_header, text="Search", command=self.createTable)
+        search_button = Button(frame_header, text="Go To", command=self.createTable)
+        
         
         # Render
         path_label.grid(row=0, column=0)
@@ -38,94 +47,29 @@ class tab_explorer:
 
         search_button.grid(row=0, column=2, rowspan=2)
 
-
-    def createTableHeader(self):
-        # Variables
-        prefix = StringVar()
-
-
+    def frameSearchReplace(self):
         # Widget Root
-        frame_tableHeader = Frame(self.root)
-        self.frameList.append(frame_tableHeader)
-        frame_tableHeader.pack()
-
+        frame_SearchReplace = Frame(self.root, borderwidth=10)
+        frame_SearchReplace.pack()
         # Widgets
-        filename_prefix_label = Label(frame_tableHeader, text="File Name Prefix")
-        filename_prefix_entry = Entry(frame_tableHeader)
+        search_label = Label(frame_SearchReplace, text="Search")
+        search_entry = Entry(frame_SearchReplace, textvariable=self.search)
 
-        filename_root_label = Label(frame_tableHeader, text="File Name Root")
-        filename_root_entry = Entry(frame_tableHeader)
-
-        filename_suffix_label = Label(frame_tableHeader, text="File Name Suffix")
-        filename_suffix_entry = Entry(frame_tableHeader)
-
-        filename_delimiter_label = Label(frame_tableHeader, text="File Name Delimiter")
-        filename_delimiter_entry = Entry(frame_tableHeader)
-
-        filename_index_label = Label(frame_tableHeader, text="File Name Indexing")
-        filename_index_entry = Entry(frame_tableHeader)
-
+        replace_label = Label(frame_SearchReplace, text="Replace")
+        replace_entry = Entry(frame_SearchReplace, textvariable=self.replace)
         # Render
-        filename_prefix_label.grid(row=0, column=0)
-        filename_prefix_entry.grid(row=1, column=0)
+        search_label.grid(row=0, column=0)
+        search_entry.grid(row=0, column=1, ipadx=200)
 
-        filename_root_label.grid(row=0, column=1)
-        filename_root_entry.grid(row=1, column=1)
-
-        filename_suffix_label.grid(row=0, column=2)
-        filename_suffix_entry.grid(row=1, column=2)
-
-        filename_delimiter_label.grid(row=0, column=3)
-        filename_delimiter_entry.grid(row=1, column=3)
-
-        filename_index_label.grid(row=0, column=4)
-        filename_index_entry.grid(row=1, column=4)
+        replace_label.grid(row=1, column=0)
+        replace_entry.grid(row=1, column=1, ipadx=200)
 
     def createTable(self):
-        # Clear Table
-        if(len(self.frameList) != 0):
             for frame in self.frameList:
                 frame.destroy()
 
-        self.createTableHeader()
+            table = Frame(self.root, borderwidth=.5, relief="solid")
+            self.frameList.append(table)
+            table.pack(padx=10, pady=10)
 
-        # Widget Root
-        frame_table = Frame(self.root)
-        self.frameList.append(frame_table)
-        frame_table.pack()
-
-        directory = os.listdir(self.path.get())
-        for filename in directory:
-            i = directory.index(filename)
-
-            if(filename.__contains__(self.filename_filter.get())):
-                # Variables
-                index_label = StringVar()
-                index_label.set("Result: " + str(directory.index(filename)+1))
-
-                filename_original = StringVar()
-                filename_original.set(filename)
-
-                """
-                if(filename.__contains__('.')):
-                    index_label.set("File: " + str(index_file))
-                    index_file += 1
-                else:
-                    index_label.set("Directory: " + str(index_dir))
-                    index_dir += 1
-
-                filename_original = StringVar()
-                filename_original.set(filename)
-                """
-
-
-                # Widgets
-                index_entry = Entry(frame_table, textvariable=index_label)
-                
-                filename_original_entry = Entry(frame_table, text=filename_original)
-                filename_rename_entry = Entry(frame_table, text='')
-                
-                # Render
-                index_entry.grid(row=i, column=0)
-                filename_original_entry.grid(row=i, column=1, ipadx=100)
-                filename_rename_entry.grid(row=i, column=2, ipadx=100)
+            fragment_table(table, self.path, self.filter, self.search, self.replace)

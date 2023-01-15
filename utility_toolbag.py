@@ -4,6 +4,8 @@ from component_network import *
 
 root = Tk()
 
+root.minsize(1100, 600)
+
 tabList = []
 
 def clearTab():
