@@ -1,6 +1,6 @@
 from tkinter import *
-from component_explorer import *
-from component_network import *
+from component_tab_explorer import *
+from component_tab_network import *
 
 root = Tk()
 
