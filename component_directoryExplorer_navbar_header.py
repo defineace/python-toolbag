@@ -2,15 +2,12 @@ from tkinter import *
 
 class directoryExplorer_navbar_header:
 
-    def __init__(self, root, path, filter):
+    def __init__(self, root, function_goto):
         #Variables
-
+        self.gotoTable = function_goto
         self.root = root
-        self.path = path
-        self.filter = filter
-
-        self.path.set(self.path.get())
-        self.filter.set(self.filter.get())
+        self.path = StringVar()
+        self.filter = StringVar()
 
         # Widgets
         path_label = Label(self.root,text="Path")
@@ -19,7 +16,7 @@ class directoryExplorer_navbar_header:
         filter_label = Label(self.root,text="Filter")
         filter_entry = Entry(self.root, textvariable=self.filter)
 
-        goto_button = Button(self.root, text="Go To")
+        goto_button = Button(self.root, text="Go To", command= lambda: self.gotoTable(self.path.get(), self.filter.get()))
 
         # Render
         path_label.grid(row=0, column=0)

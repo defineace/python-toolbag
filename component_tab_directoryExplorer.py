@@ -19,14 +19,11 @@ class tab_directoryExplorer:
         self.search = StringVar()
         self.replace = StringVar()
         
-        self.path.set("C:/")
+        self.path.set("C:/Users/lrdef/Desktop/Projects/Coding/Python/python-toolbag-gui")
         self.filter.set("")
 
         self.search.set("utility_")
         self.replace.set("utility_category_")
-
-        self.directoryExplorer = augment_directoryExplorer(self.path.get())
-        self.table_data = self.directoryExplorer.getDirectory_filtered(self.filter.get())
 
         # Frames
         self.frame_navbar_header = Frame(self.root)
@@ -35,27 +32,53 @@ class tab_directoryExplorer:
         self.frame_navbar_header.pack(padx=10, pady=10)
         self.frame_navbar_searchReplace.pack()
         
-        frame_table_body = Frame(self.root, borderwidth=1, relief="solid", padx=10, pady=10)
-        frame_table_body.pack(padx=20, pady=20)        
-        self.frameList.append(frame_table_body)
+        self.frame_table_body = Frame(self.root, borderwidth=1, relief="solid", padx=10, pady=10)
+        self.frame_table_body.pack(padx=20, pady=20)
+
+        # Create OS Directory Explorer
+        self.directoryExplorer = augment_directoryExplorer(self.path.get())
+        self.table_data = self.directoryExplorer.getDirectory_filtered(self.filter.get())
 
         # Create Explorer Navbar Header
-        directoryExplorer_navbar_header(self.frame_navbar_header, self.path, self.filter)
+        self.navbar_header = directoryExplorer_navbar_header(self.frame_navbar_header, self.updateTable_goto)
         
-        # Create Explorer Navbar Search and Replace
-        directoryExplorer_navbar_searchReplace(self.frame_navbar_searchReplace, self.search, self.replace)
-        
-        # Create Explorer Table Body
-        directoryExplorer_table_body(self.frameList[0], self.table_data)
+        # Config navbar header
+        self.config_navbarHeader()
 
+        # Create Explorer Navbar Search and Replace
+        self.navbar_searchReplace = directoryExplorer_navbar_searchReplace(self.frame_navbar_searchReplace, self.search, self.replace)
+        
+        self.createTable()
+
+
+        
+    def config_navbarHeader(self):
+        self.navbar_header.path.set(self.path.get())
+        self.navbar_header.filter.set(self.filter.get())
 
     def createTable(self):
         # Clear table frame
-        for frame in self.frameList:
-            frame.destroy()
+        self.frame_table_body.destroy()
 
         # Frames
-        frame_table_body = Frame(self.root, borderwidth=1, relief="solid", padx=10, pady=10)
-        frame_table_body.pack(padx=20, pady=20)        
-        self.frameList.append(frame_table_body)
-     
+        self.frame_table_body = Frame(self.root, borderwidth=1, relief="solid", padx=10, pady=10)
+        self.frame_table_body.pack(padx=20, pady=20)      
+
+        # Create Explorer Table Body
+        directoryExplorer_table_body(self.frame_table_body, self.table_data)
+
+    def updateTable_goto(self, path, filter):
+        # Function for goto button in navbar header
+        
+        #Update vaiables
+        self.path = path
+        self.filter = filter
+
+        # Update OS Directory Explorer
+        self.directoryExplorer.updatePath(self.path)
+        self.table_data = self.directoryExplorer.getDirectory_filtered(self.filter)
+
+        # Refresh Table
+        self.createTable()
+
+

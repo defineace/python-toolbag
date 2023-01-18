@@ -3,7 +3,7 @@ from tkinter import *
 class directoryExplorer_table_body:
     # data takes in 2 list [[original directory results],[edited directory results]]
     def __init__(self, root, data):
-        # Main Variables
+        # Variables
         self.root = root
         self.data = data
         
@@ -22,7 +22,6 @@ class directoryExplorer_table_body:
 
         self.canvas_container.create_window((0,0), window=self.frame_container, anchor='nw')
         self.frame_container.bind("<Configure>", self.bind_callback) 
-
 
         # Render
         for result in self.data:
@@ -43,7 +42,7 @@ class directoryExplorer_table_body:
             # Sub Render
             filename_index_entry.grid(row=i, column=0)
             filename_original_entry.grid(row=i, column=1, ipadx=157)
-            filename_new_entry.grid(row=i, column=2, ipadx=157)
-            
+            filename_new_entry.grid(row=i, column=2, ipadx=157)  
+
     def bind_callback(self, event):
         self.canvas_container.configure(scrollregion=self.canvas_container.bbox("all"), width=1000, height=300)

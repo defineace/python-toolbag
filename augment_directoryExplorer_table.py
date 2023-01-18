@@ -6,8 +6,12 @@ class augment_directoryExplorer:
         self.directory = os.listdir(self.path)
 
     # Set new path
-    def setPath(self, newPath):
+    def updatePath(self, newPath):
         self.path = newPath
+        self.directory = os.listdir(self.path)
+
+    def getPath(self):
+        return self.path
 
     # Get directory
     def getDirectory(self):
@@ -15,6 +19,7 @@ class augment_directoryExplorer:
 
     # Get filtered directory
     def getDirectory_filtered(self, filter):
+
         directory_filtered = []
         for result in self.directory:
 

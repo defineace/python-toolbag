@@ -9,16 +9,19 @@ class AppMainLoop:
     def __init__(self, root):
         # Variables
         self.root = root
-        self.tabs_frameList = []
         
         # Widget Root
-        navbar = Frame(self.root)
-        navbar.pack()
+        self.frame_tab = Frame(self.root)
+        self.frame_tab.pack()
+
+        self.navbar = Frame(self.root)
+        self.navbar.pack()
+        
         # Widgets
-        explorer_button = Button(navbar, text="Directory Explorer", command=self.tab_DirectoryExplorer)
+        explorer_button = Button(self.navbar, text="Directory Explorer", command=self.tab_DirectoryExplorer)
         explorer_button.grid(row=0, column=0)
 
-        network_button = Button(navbar, text="Network Tools", command=self.tab_Network)
+        network_button = Button(self.navbar, text="Network Tools", command=self.tab_Network)
         network_button.grid(row=0, column=2)
 
         self.tab_DirectoryExplorer()
@@ -26,33 +29,23 @@ class AppMainLoop:
         # Render
         root.mainloop()
 
-    def clearTab(self):
-        for frame in self.tabs_frameList:
-            frame.destroy()
-
     def tab_DirectoryExplorer(self):
-        self.clearTab()
-        
         # Widget Root
-        frame_tab = Frame(self.root)
-        frame_tab.pack()
-        self.tabs_frameList.append(frame_tab)
+        self.frame_tab.destroy()
+        self.frame_tab = Frame(self.root)
+        self.frame_tab.pack()
 
         # Render Directory Explorer Tab
-        tab_directoryExplorer(frame_tab)
+        tab_directoryExplorer(self.frame_tab)
 
     def tab_Network(self):
-        self.clearTab()
-
         # Widget Root
-        frame_tab = Frame(self.root)
-        frame_tab.pack()
-        self.tabs_frameList.append(frame_tab)
+        self.frame_tab.destroy()
+        self.frame_tab = Frame(self.root)
+        self.frame_tab.pack()
         
         # Render Network tab
-        tab_network(frame_tab)
-
-
+        tab_network(self.frame_tab)
 
 if __name__ == '__main__':   
     AppMainLoop(mainRoot)

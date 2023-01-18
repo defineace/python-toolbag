@@ -11,7 +11,7 @@ class directoryExplorer_navbar_searchReplace:
         self.replace.set(self.replace.get())
 
         # Widgets
-        title_label = Label(self.root, text="Search and Replace")
+        title_label = Label(self.root, text="Rename Files")
 
         search_label = Label(self.root, text="Search")
         search_entry = Entry(self.root, textvariable=self.search)
