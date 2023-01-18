@@ -1,10 +1,9 @@
 from tkinter import *
-class component_explorer_navbar_header:
-    def __init__(self, tab_explorer, root, path, filter):
+
+class directoryExplorer_navbar_header:
+
+    def __init__(self, root, path, filter):
         #Variables
-        self.tab_explorer = tab_explorer
-        
-        print(self.tab_explorer)
 
         self.root = root
         self.path = path
@@ -20,8 +19,8 @@ class component_explorer_navbar_header:
         filter_label = Label(self.root,text="Filter")
         filter_entry = Entry(self.root, textvariable=self.filter)
 
-        search_button = Button(self.root, text="Go To", command= lambda: self.tab_explorer.createTable(self))
-        
+        goto_button = Button(self.root, text="Go To")
+
         # Render
         path_label.grid(row=0, column=0)
         path_entry.grid(row=0, column=1, ipadx=300)
@@ -29,4 +28,4 @@ class component_explorer_navbar_header:
         filter_label.grid(row=1, column=0)
         filter_entry.grid(row=1, column=1, ipadx=300)
 
-        search_button.grid(row=0, column=2, rowspan=2)
+        goto_button.grid(row=0, column=2, rowspan=2)

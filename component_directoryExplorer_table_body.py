@@ -1,6 +1,6 @@
 from tkinter import *
 
-class component_explorer_table_body:
+class directoryExplorer_table_body:
     # data takes in 2 list [[original directory results],[edited directory results]]
     def __init__(self, root, data):
         # Main Variables
@@ -38,11 +38,12 @@ class component_explorer_table_body:
             # Sub Widgets
             filename_index_entry = Entry(self.frame_container, textvariable=index_label)
             filename_original_entry = Entry(self.frame_container, text=filename_original)
+            filename_new_entry = Entry(self.frame_container)
 
             # Sub Render
             filename_index_entry.grid(row=i, column=0)
             filename_original_entry.grid(row=i, column=1, ipadx=157)
-
+            filename_new_entry.grid(row=i, column=2, ipadx=157)
             
     def bind_callback(self, event):
         self.canvas_container.configure(scrollregion=self.canvas_container.bbox("all"), width=1000, height=300)

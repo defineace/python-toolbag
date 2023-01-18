@@ -1,6 +1,6 @@
 import os
 
-class fragment_directory_explorer:
+class augment_directoryExplorer:
     def __init__(self, path):
         self.path = path
         self.directory = os.listdir(self.path)

@@ -1,45 +1,58 @@
 from tkinter import *
-from component_tab_explorer import *
+from component_tab_directoryExplorer import *
 from component_tab_network import *
 
-root = Tk()
+mainRoot = Tk()
+mainRoot.minsize(1100, 600)
 
-root.minsize(1100, 600)
+class AppMainLoop:
+    def __init__(self, root):
+        # Variables
+        self.root = root
+        self.tabs_frameList = []
+        
+        # Widget Root
+        navbar = Frame(self.root)
+        navbar.pack()
+        # Widgets
+        explorer_button = Button(navbar, text="Directory Explorer", command=self.tab_DirectoryExplorer)
+        explorer_button.grid(row=0, column=0)
 
-tabList = []
+        network_button = Button(navbar, text="Network Tools", command=self.tab_Network)
+        network_button.grid(row=0, column=2)
 
-def clearTab():
-    for tab in tabList:
-        tab.destroy()
+        self.tab_DirectoryExplorer()
 
-def tabExplorer():
-    clearTab()
-    tab = Frame(root)
-    tabList.append(tab)
-    tab.pack()
-    tab_explorer(tab)
+        # Render
+        root.mainloop()
 
+    def clearTab(self):
+        for frame in self.tabs_frameList:
+            frame.destroy()
 
-def tabNetwork():
-    clearTab()
-    tab = Frame(root)
-    tabList.append(tab)
-    tab.pack()
-    tab_network(tab)
+    def tab_DirectoryExplorer(self):
+        self.clearTab()
+        
+        # Widget Root
+        frame_tab = Frame(self.root)
+        frame_tab.pack()
+        self.tabs_frameList.append(frame_tab)
 
-def main():
+        # Render Directory Explorer Tab
+        tab_directoryExplorer(frame_tab)
 
-    navbar = Frame(root)
-    navbar.pack()
+    def tab_Network(self):
+        self.clearTab()
 
-    explorer_button = Button(navbar, text="Directory Explorer", command=tabExplorer)
-    explorer_button.grid(row=0, column=0)
+        # Widget Root
+        frame_tab = Frame(self.root)
+        frame_tab.pack()
+        self.tabs_frameList.append(frame_tab)
+        
+        # Render Network tab
+        tab_network(frame_tab)
 
-    network_button = Button(navbar, text="Network Tools", command=tabNetwork)
-    network_button.grid(row=0, column=2)
-
-    root.mainloop()
 
 
 if __name__ == '__main__':   
-    main()
+    AppMainLoop(mainRoot)

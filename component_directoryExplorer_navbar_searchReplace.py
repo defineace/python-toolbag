@@ -1,6 +1,6 @@
 from tkinter import *
 
-class component_explorer_navbar_searchReplace:
+class directoryExplorer_navbar_searchReplace:
     def __init__(self, root, search, replace):
         # Variables
         self.root = root
