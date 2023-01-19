@@ -19,11 +19,11 @@ class tab_directoryExplorer:
         self.search = StringVar()
         self.replace = StringVar()
         
-        self.path.set("C:/Users/lrdef/Desktop/Projects/Coding/Python/python-toolbag-gui")
-        self.filter.set("tab")
+        self.path.set("C:/")
+        self.filter.set("")
 
-        self.search.set("augment")
-        self.replace.set("augments")
+        self.search.set("")
+        self.replace.set("")
 
         # Frames
         self.frame_navbar_header = Frame(self.root)
