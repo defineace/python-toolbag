@@ -1,7 +1,7 @@
 from tkinter import *
 from augment_directoryExplorer_table import *
 from component_directoryExplorer_navbar_header import *
-from component_directoryExplorer_navbar_searchReplace import *
+from component_directoryExplorer_navbar_fileRename import *
 from component_directoryExplorer_table_body import *
 
 
@@ -35,19 +35,25 @@ class tab_directoryExplorer:
         self.frame_table_body = Frame(self.root, borderwidth=1, relief="solid", padx=10, pady=10)
         self.frame_table_body.pack(padx=20, pady=20)
 
-        # Create OS Directory Explorer
+        # Create OS directory explorer
         self.directoryExplorer = augment_directoryExplorer(self.path.get())
-        self.table_data = self.directoryExplorer.getDirectory_filtered(self.filter.get())
+        
+        self.dataList_1 = self.directoryExplorer.getDirectory_filtered(self.filter.get())
+        self.dataList_2 = []
 
-        # Create Explorer Navbar Header
-        self.navbar_header = directoryExplorer_navbar_header(self.frame_navbar_header, self.updateTable_goto)
+        # Create explorer navbar header
+        self.navbar_header = directoryExplorer_navbar_header(self.frame_navbar_header, self.buttonClicked_goto)
         
         # Config navbar header
         self.config_navbarHeader()
 
-        # Create Explorer Navbar Search and Replace
-        self.navbar_searchReplace = directoryExplorer_navbar_searchReplace(self.frame_navbar_searchReplace, self.search, self.replace)
+        # Create explorer navbar file rename
+        self.navbar_fileRename = directoryExplorer_navbar_fileRename(self.frame_navbar_searchReplace, self.buttonClicked_search, self.buttonClicked_replace)
         
+        # Config navbar file rename
+        self.config_fileRename()
+
+        # Create directory explorer table results
         self.createTable()
 
 
@@ -56,6 +62,10 @@ class tab_directoryExplorer:
         self.navbar_header.path.set(self.path.get())
         self.navbar_header.filter.set(self.filter.get())
 
+    def config_fileRename(self):
+        self.navbar_fileRename.search.set(self.search.get())
+        self.navbar_fileRename.replace.set(self.replace.get())
+    
     def createTable(self):
         # Clear table frame
         self.frame_table_body.destroy()
@@ -65,20 +75,36 @@ class tab_directoryExplorer:
         self.frame_table_body.pack(padx=20, pady=20)      
 
         # Create Explorer Table Body
-        directoryExplorer_table_body(self.frame_table_body, self.table_data)
+        directoryExplorer_table_body(self.frame_table_body, self.dataList_1, self.dataList_2)
 
-    def updateTable_goto(self, path, filter):
+    def buttonClicked_goto(self, path, filter):
         # Function for goto button in navbar header
         
         #Update vaiables
-        self.path = path
-        self.filter = filter
+        self.path.set(path)
+        self.filter.set(filter)
 
         # Update OS Directory Explorer
-        self.directoryExplorer.updatePath(self.path)
-        self.table_data = self.directoryExplorer.getDirectory_filtered(self.filter)
+        self.directoryExplorer.updatePath(self.path.get())
+
+        self.dataList_1 = self.directoryExplorer.getDirectory_filtered(self.filter.get())
+        self.dataList_2 = []
 
         # Refresh Table
         self.createTable()
 
+    def buttonClicked_search(self, search, replace):
+        print("Search Clicked")
+        # Add search functionality here, searching and highlighting results from current path
 
+        self.search.set(search)
+        self.replace.set(replace)
+
+        self.dataList_1 = self.directoryExplorer.getDirectory_filtered(self.filter.get())
+        self.dataList_2 = self.directoryExplorer.getDirectory_previewRename_filtered(self.search.get(), self.replace.get(), self.filter.get())
+
+        self.createTable()
+
+    def buttonClicked_replace(self):
+        print("Replace Clicked")
+        # Add replace functionality here, making is permnanent

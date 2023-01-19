@@ -19,16 +19,14 @@ class augment_directoryExplorer:
 
     # Get filtered directory
     def getDirectory_filtered(self, filter):
-
         directory_filtered = []
         for result in self.directory:
-
             if(result.__contains__(filter)):
                 directory_filtered.append(result)
         return directory_filtered
 
     # Get previewed directory file names of search and replace
-    def getDirectory_previewSearchAndReplace(self, search, replace):
+    def getDirectory_previewRename(self, search, replace):
         directory_preview = []
         for result in self.directory:
             if(result.__contains__(search)):
@@ -37,8 +35,16 @@ class augment_directoryExplorer:
                 directory_preview.append(result)
         return directory_preview
 
+    # Get filtered previewed directory file names of search and replace
+    def getDirectory_previewRename_filtered(self, search, replace, filter):
+        directory_preview = []
+        for result in self.directory:
+            if(result.__contains__(search) and result.__contains__(filter)):
+                directory_preview.append(result.replace(search, replace))
+        return directory_preview
+
     # Edit directory file names via search and replace
-    def editDirectory_searchAndReplace(self, search, replace):
+    def editDirectory_fileRename(self, search, replace):
         updated = False
         for result in self.directory:
             if(result.__contains__(search)):
