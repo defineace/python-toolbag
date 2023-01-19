@@ -20,10 +20,10 @@ class tab_directoryExplorer:
         self.replace = StringVar()
         
         self.path.set("C:/Users/lrdef/Desktop/Projects/Coding/Python/python-toolbag-gui")
-        self.filter.set("")
+        self.filter.set("tab")
 
-        self.search.set("utility_")
-        self.replace.set("utility_category_")
+        self.search.set("augment")
+        self.replace.set("augments")
 
         # Frames
         self.frame_navbar_header = Frame(self.root)
@@ -95,16 +95,36 @@ class tab_directoryExplorer:
 
     def buttonClicked_search(self, search, replace):
         print("Search Clicked")
-        # Add search functionality here, searching and highlighting results from current path
-
         self.search.set(search)
         self.replace.set(replace)
 
         self.dataList_1 = self.directoryExplorer.getDirectory_filtered(self.filter.get())
         self.dataList_2 = self.directoryExplorer.getDirectory_previewRename_filtered(self.search.get(), self.replace.get(), self.filter.get())
 
+        # Refresh Table
         self.createTable()
 
-    def buttonClicked_replace(self):
+    def buttonClicked_replace(self, search, replace):
         print("Replace Clicked")
-        # Add replace functionality here, making is permnanent
+        self.search.set(search)
+        self.replace.set(replace)
+
+        # Change file name
+        if(len(self.dataList_2) != 0):
+            self.directoryExplorer.editDirectory_fileRename(self.search.get(), self.replace.get())
+
+            self.navbar_fileRename.search_entry.configure( bg="white")
+            self.navbar_fileRename.search_button.configure( bg="SystemButtonFace")
+        else:
+            self.navbar_fileRename.search_entry.configure( bg="#e8baba")
+            self.navbar_fileRename.search_button.configure( bg="#e8baba")
+
+        # Update OS Directory Explorer
+        self.directoryExplorer.updatePath(self.path.get())
+
+        self.dataList_1 = self.directoryExplorer.getDirectory_filtered(self.filter.get())
+        self.dataList_2 = []
+
+
+        # Refresh Table
+        self.createTable()
