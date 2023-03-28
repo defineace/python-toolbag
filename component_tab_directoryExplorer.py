@@ -40,6 +40,9 @@ class tab_directoryExplorer:
         
         self.dataList_1 = self.directoryExplorer.getDirectory_filtered(self.filter.get())
         self.dataList_2 = []
+        self.dataList_dateCreated = self.directoryExplorer.getDirectory_dateCreated_filtered(self.filter.get())
+        self.dataList_dateModified = self.directoryExplorer.getDirectory_dateModified_filtered(self.filter.get())
+        self.dataList_type = self.directoryExplorer.getDirectory_type_filtered(self.filter.get())
 
         # Create explorer navbar header
         self.navbar_header = directoryExplorer_navbar_header(self.frame_navbar_header, self.buttonClicked_goto)
@@ -75,7 +78,7 @@ class tab_directoryExplorer:
         self.frame_table_body.pack(padx=20, pady=20)      
 
         # Create Explorer Table Body
-        directoryExplorer_table_body(self.frame_table_body, self.dataList_1, self.dataList_2)
+        directoryExplorer_table_body(self.frame_table_body, self.dataList_1, self.dataList_2, self.dataList_dateCreated, self.dataList_dateModified, self.dataList_type)
 
     def buttonClicked_goto(self, path, filter):
         # Function for goto button in navbar header

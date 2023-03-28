@@ -1,4 +1,4 @@
-import os
+import os, time
 
 class augment_directoryExplorer:
     def __init__(self, path):
@@ -16,6 +16,38 @@ class augment_directoryExplorer:
     # Get directory
     def getDirectory(self):
         return self.directory
+
+    def getDirectory_dateCreated_filtered(self, filter):
+        directory_dateCreated = []
+        for result in self.directory:
+            if(result.__contains__(filter)):
+                path = self.path + "/" + result
+                directory_dateCreated.append(time.ctime(os.path.getctime(path)))
+        return directory_dateCreated
+
+    def getDirectory_dateModified_filtered(self, filter):
+        directory_dateModified = []
+        for result in self.directory:
+            if(result.__contains__(filter)):
+                path = self.path + "/" + result
+                directory_dateModified.append(time.ctime(os.path.getmtime(path)))
+        return directory_dateModified
+
+
+
+    def getDirectory_type_filtered(self, filter):
+        directory_type = []
+        for result in self.directory:
+            if(result.__contains__(filter)):
+                path = self.path + "/" + result
+                if(os.path.isdir(path) == True):
+                    directory_type.append("Folder")
+                else:
+                    directory_type.append("File")           
+        return directory_type
+
+
+
 
     # Get filtered directory
     def getDirectory_filtered(self, filter):

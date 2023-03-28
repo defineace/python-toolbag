@@ -17,7 +17,7 @@ class directoryExplorer_navbar_fileRename:
         self.search_entry = Entry(self.root, textvariable=self.search)
         self.search_button = Button(self.root, text="Search", command= lambda: self.buttonClicked_search(self.search.get(), self.replace.get()))
 
-        self.replace_label = Label(self.root, text="Replace")
+        self.replace_label = Label(self.root, text="Rename")
         self.replace_entry = Entry(self.root, textvariable=self.replace)
         self.replace_button = Button(self.root, text="Replace", command= lambda: self.buttonClicked_replace(self.search.get(), self.replace.get()))
 

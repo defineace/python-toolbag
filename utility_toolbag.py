@@ -3,7 +3,7 @@ from component_tab_directoryExplorer import *
 from component_tab_network import *
 
 mainRoot = Tk()
-mainRoot.minsize(1100, 600)
+mainRoot.minsize(1600, 600)
 
 class AppMainLoop:
     def __init__(self, root):
