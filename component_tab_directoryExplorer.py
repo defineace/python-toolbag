@@ -40,6 +40,7 @@ class tab_directoryExplorer:
         
         self.dataList_1 = self.directoryExplorer.getDirectory_filtered(self.filter.get())
         self.dataList_2 = []
+        
         self.dataList_dateCreated = self.directoryExplorer.getDirectory_dateCreated_filtered(self.filter.get())
         self.dataList_dateModified = self.directoryExplorer.getDirectory_dateModified_filtered(self.filter.get())
         self.dataList_type = self.directoryExplorer.getDirectory_type_filtered(self.filter.get())

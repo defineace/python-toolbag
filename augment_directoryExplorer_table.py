@@ -13,10 +13,20 @@ class augment_directoryExplorer:
     def getPath(self):
         return self.path
 
-    # Get directory
+    # Get directory - Unfiltered
     def getDirectory(self):
         return self.directory
 
+    # Get directory - filtered
+    def getDirectory_filtered(self, filter):
+        directory_filtered = []
+        for result in self.directory:
+            if(result.__contains__(filter)):
+                directory_filtered.append(result)
+        return directory_filtered
+
+
+    # Get directory date created -  filtered
     def getDirectory_dateCreated_filtered(self, filter):
         directory_dateCreated = []
         for result in self.directory:
@@ -25,6 +35,7 @@ class augment_directoryExplorer:
                 directory_dateCreated.append(time.ctime(os.path.getctime(path)))
         return directory_dateCreated
 
+    # Get directory date modified -  filtered
     def getDirectory_dateModified_filtered(self, filter):
         directory_dateModified = []
         for result in self.directory:
@@ -34,7 +45,7 @@ class augment_directoryExplorer:
         return directory_dateModified
 
 
-
+    # Get directory file type -  filtered
     def getDirectory_type_filtered(self, filter):
         directory_type = []
         for result in self.directory:
@@ -46,18 +57,7 @@ class augment_directoryExplorer:
                     directory_type.append("File")           
         return directory_type
 
-
-
-
-    # Get filtered directory
-    def getDirectory_filtered(self, filter):
-        directory_filtered = []
-        for result in self.directory:
-            if(result.__contains__(filter)):
-                directory_filtered.append(result)
-        return directory_filtered
-
-    # Get previewed directory file names of search and replace
+    # Get directory Search and Replace Previewed - unfiltered
     def getDirectory_previewRename(self, search, replace, filter):
         directory_preview = []
         for result in self.directory:
@@ -67,7 +67,7 @@ class augment_directoryExplorer:
                 directory_preview.append(result)
         return directory_preview
 
-    # Get filtered previewed directory file names of search and replace
+    # Get directory Search and Replace Previewed - filtered
     def getDirectory_previewRename_filtered(self, search, replace, filter):
         directory_preview = []
         for result in self.directory:

@@ -44,10 +44,10 @@ class directoryExplorer_table_body:
         columnHeader_type.set("Type")
 
         columnHeader_fileName_old = StringVar()
-        columnHeader_fileName_old.set("File Name")
+        columnHeader_fileName_old.set("Name")
 
         columnHeader_fileName_new = StringVar()
-        columnHeader_fileName_new.set("File Name New")
+        columnHeader_fileName_new.set("Search and Replace")
 
         # Column Header Widgets
         columnHeader_index_entry = Entry(self.frame_container, textvariable=columnHeader_index, font='Helvetica 8 bold')

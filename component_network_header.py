@@ -6,9 +6,12 @@ class network_header:
     def __init__(self, root):
         self.root = root
 
-         # Variables
+        self.show_network_configuration()
+        self.show_network_adapters()
+         
 
-
+    def show_network_configuration(self):
+        # Variables
         self.computer_name = socket.gethostname()
         self.ipv4 = socket.getaddrinfo(self.computer_name, 80, family=socket.AF_INET, proto=socket.IPPROTO_TCP)[0][4][0]
         self.ipv6 = socket.getaddrinfo(self.computer_name, 80, family=socket.AF_INET6, proto=socket.IPPROTO_TCP)[0][4][0]
@@ -47,9 +50,12 @@ class network_header:
         ipv6_label.grid(row=3, column=0)
         ipv6_entry.grid(row=3, column=1, ipadx=50)
 
+    def show_network_adapters(self):
+        # Variables
         adapter_label = Label(self.root, text="Local Network Adapters")
         adapter_label.grid(row=4, columnspan=3)
 
+        # Render
         for i,result in enumerate(self.network_adapters):
             adapter = StringVar()
             adapter.set(result)

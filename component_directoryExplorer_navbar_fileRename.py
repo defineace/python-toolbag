@@ -11,13 +11,13 @@ class directoryExplorer_navbar_fileRename:
         self.replace = StringVar()
 
         # Widgets
-        self.title_label = Label(self.root, text="Rename Files")
+        self.title_label = Label(self.root, text="Search and Replace")
 
         self.search_label = Label(self.root, text="Search")
         self.search_entry = Entry(self.root, textvariable=self.search)
         self.search_button = Button(self.root, text="Search", command= lambda: self.buttonClicked_search(self.search.get(), self.replace.get()))
 
-        self.replace_label = Label(self.root, text="Rename")
+        self.replace_label = Label(self.root, text="Replace")
         self.replace_entry = Entry(self.root, textvariable=self.replace)
         self.replace_button = Button(self.root, text="Replace", command= lambda: self.buttonClicked_replace(self.search.get(), self.replace.get()))
 
