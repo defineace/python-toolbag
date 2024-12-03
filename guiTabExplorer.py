@@ -2,10 +2,13 @@ from tkinter import *
 from module_explorer import *
 
 class guiTabExplorer:
-    def __init__( self, root ):
+    def __init__( self, root, window_width, window_height ):
         # Init tkinter gui explorer
         self.root = root
 
+        self.WINDOW_WIDTH = window_width*.125
+        self.WINDOW_HEIGHT = window_height
+        
         self.path = StringVar()
         self.path.set("C:/")
         self.module_explorer = directoryExplorer(self.path.get())
@@ -88,12 +91,12 @@ class guiTabExplorer:
         entry_header_nameEdited = Entry(self.table_frame, textvariable=header_nameEdited, font='Helvetica 8 bold')
 
         # Column Header Render
-        entry_header_index.grid(row=0, column=0, ipadx=10)
-        entry_header_dateCreated.grid(row=0, column=1, ipadx=10)
-        entry_header_dateModified.grid(row=0, column=2, ipadx=10)
-        entry_header_type.grid(row=0, column=3, ipadx=10)
-        entry_header_name.grid(row=0, column=4, ipadx=10)
-        entry_header_nameEdited.grid(row=0, column=5, ipadx=10)
+        entry_header_index.grid(row=0, column=0, ipadx=self.WINDOW_WIDTH/6)
+        entry_header_dateCreated.grid(row=0, column=1, ipadx=self.WINDOW_WIDTH/6)
+        entry_header_dateModified.grid(row=0, column=2, ipadx=self.WINDOW_WIDTH/6)
+        entry_header_type.grid(row=0, column=3, ipadx=self.WINDOW_WIDTH/6)
+        entry_header_name.grid(row=0, column=4, ipadx=self.WINDOW_WIDTH/6)
+        entry_header_nameEdited.grid(row=0, column=5, ipadx=self.WINDOW_WIDTH/6)
         #############################################################
         #############################################################
         # Table Body
@@ -125,12 +128,12 @@ class guiTabExplorer:
             entry_col_nameEdited = Entry(self.table_frame, text=data_nameEdited)
 
             # Row Render
-            entry_col_index.grid(row=i, column=0, ipadx=10)
-            entry_col_dateCreated.grid(row=i, column=1, ipadx=10)
-            entry_col_dateModified.grid(row=i, column=2, ipadx=10)
-            entry_col_type.grid(row=i, column=3, ipadx=10)
-            entry_col_name.grid(row=i, column=4, ipadx=10)
-            entry_col_nameEdited.grid(row=i, column=5, ipadx=10)
+            entry_col_index.grid(row=i, column=0, ipadx=self.WINDOW_WIDTH/6)
+            entry_col_dateCreated.grid(row=i, column=1, ipadx=self.WINDOW_WIDTH/6)
+            entry_col_dateModified.grid(row=i, column=2, ipadx=self.WINDOW_WIDTH/6)
+            entry_col_type.grid(row=i, column=3, ipadx=self.WINDOW_WIDTH/6)
+            entry_col_name.grid(row=i, column=4, ipadx=self.WINDOW_WIDTH/6)
+            entry_col_nameEdited.grid(row=i, column=5, ipadx=self.WINDOW_WIDTH/6)
         
     def bind_callback(self, event):
-        self.table_canvas.configure(scrollregion=self.table_canvas.bbox("all"), width=900, height=300)
+        self.table_canvas.configure(scrollregion=self.table_canvas.bbox("all"), width=1000, height=300)
