@@ -29,11 +29,11 @@ class guiTabExplorer:
         #############################################################
         #############################################################
 
-        self.displayExplorerTab()
+        self.displayTab()
         self.displayToolbar()
         self.displayTable()
 
-    def displayExplorerTab( self ):
+    def displayTab( self ):
         self.frame_tabExplorer = Frame(self.root)
         self.frame_tabExplorer.pack()
 
@@ -44,6 +44,7 @@ class guiTabExplorer:
         #############################################################
         #############################################################
         self.frame_toolbar = Frame( self.frame_tabExplorer)
+        self.frame_toolbar.pack()
 
         self.label_path = Label( self.frame_toolbar, text="Path")
         self.entry_path = Entry( self.frame_toolbar, textvariable=self.path)
@@ -60,7 +61,6 @@ class guiTabExplorer:
         # Render
         #############################################################
         #############################################################
-        self.frame_toolbar.pack()
 
         self.label_path.grid(row = 0, column = 0)
         self.entry_path.grid(row = 0, column = 1, ipadx=self.TOOLBAR_ENTRY_WIDTH)
@@ -78,8 +78,11 @@ class guiTabExplorer:
         # Table Container
         #############################################################
         #############################################################
-        self.table_canvas = Canvas( self.frame_tabExplorer , width=self.TABLE_WIDTH, height=self.TABLE_HEIGHT)
-        self.frame_table = Frame(self.table_canvas)
+        self.frame_table = Frame( self.frame_tabExplorer)
+        self.frame_table.pack()
+
+        self.table_canvas = Canvas( self.frame_table , width=self.TABLE_WIDTH, height=self.TABLE_HEIGHT)
+        self.table_frame = Frame(self.table_canvas)
         #############################################################
         #############################################################
         # Table Scrollbar
@@ -91,7 +94,7 @@ class guiTabExplorer:
         self.table_scrollbar.pack(side=RIGHT, fill=Y)
         self.table_canvas.pack(side=LEFT)
 
-        self.table_canvas.create_window((0,0), window=self.frame_table, anchor='nw')
+        self.table_canvas.create_window((0,0), window=self.table_frame, anchor='nw')
         self.table_canvas.bind("<Configure>", self.bind_callback)
         #############################################################
         #############################################################
@@ -113,12 +116,12 @@ class guiTabExplorer:
         header_nameEdited.set("Name Replace")
         
         # Column Header Widgets
-        entry_header_index = Entry(self.frame_table, textvariable=header_index, font='Helvetica 8 bold')
-        entry_header_dateCreated = Entry(self.frame_table, textvariable=header_dateCreated, font='Helvetica 8 bold')
-        entry_header_dateModified = Entry(self.frame_table, textvariable=header_dateModified, font='Helvetica 8 bold')
-        entry_header_type = Entry(self.frame_table, textvariable=header_type, font='Helvetica 8 bold')
-        entry_header_name = Entry(self.frame_table, textvariable=header_name, font='Helvetica 8 bold')
-        entry_header_nameEdited = Entry(self.frame_table, textvariable=header_nameEdited, font='Helvetica 8 bold')
+        entry_header_index = Entry(self.table_frame, textvariable=header_index, font='Helvetica 8 bold')
+        entry_header_dateCreated = Entry(self.table_frame, textvariable=header_dateCreated, font='Helvetica 8 bold')
+        entry_header_dateModified = Entry(self.table_frame, textvariable=header_dateModified, font='Helvetica 8 bold')
+        entry_header_type = Entry(self.table_frame, textvariable=header_type, font='Helvetica 8 bold')
+        entry_header_name = Entry(self.table_frame, textvariable=header_name, font='Helvetica 8 bold')
+        entry_header_nameEdited = Entry(self.table_frame, textvariable=header_nameEdited, font='Helvetica 8 bold')
 
         # Column Header Render
         entry_header_index.grid(row=0, column=0, ipadx=.05)
@@ -145,19 +148,18 @@ class guiTabExplorer:
             data_type = StringVar()
             data_type.set( "N/A" )
             data_name = StringVar()
-            
             data_name.set( result )
             data_nameEdited = StringVar()
             data_nameEdited.set("")
 
 
             # Row Widgets
-            entry_col_index = Entry(self.frame_table, textvariable=data_index)
-            entry_col_dateCreated = Entry(self.frame_table, textvariable=data_dateCreated)
-            entry_col_dateModified = Entry(self.frame_table, textvariable=data_dateModified)
-            entry_col_type = Entry(self.frame_table, textvariable=data_type)
-            entry_col_name = Entry(self.frame_table, text=data_name)
-            entry_col_nameEdited = Entry(self.frame_table, text=data_nameEdited)
+            entry_col_index = Entry(self.table_frame, textvariable=data_index)
+            entry_col_dateCreated = Entry(self.table_frame, textvariable=data_dateCreated)
+            entry_col_dateModified = Entry(self.table_frame, textvariable=data_dateModified)
+            entry_col_type = Entry(self.table_frame, textvariable=data_type)
+            entry_col_name = Entry(self.table_frame, text=data_name)
+            entry_col_nameEdited = Entry(self.table_frame, text=data_nameEdited)
 
             # Row Render
             entry_col_index.grid(row=i, column=0, ipadx=.05)
@@ -168,5 +170,5 @@ class guiTabExplorer:
             entry_col_nameEdited.grid(row=i, column=5, ipadx=self.TABLE_COL_WIDTH)
 
     def bind_callback(self, event):
-        self.table_canvas.configure(scrollregion=self.table_canvas.bbox("all"), ipadx=self.TABLE_WIDTH, height=self.TABLE_HEIGHT)6
+        self.table_canvas.configure(scrollregion=self.table_canvas.bbox("all"), ipadx=self.TABLE_WIDTH, height=self.TABLE_HEIGHT)
 
